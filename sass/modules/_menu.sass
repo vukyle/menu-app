@@ -1,0 +1,74 @@
+.header
+    text-align: center
+
+.menu
+    &__item
+        margin: 0 auto
+        width: 90%
+        display: flex
+        flex-wrap: wrap
+        margin-top: 15 / 16 * 1em
+    &__title
+        text-align: center
+        color: $primary-color1
+    &__name
+        display: inline-block
+        width: 80%
+        margin: 0
+    &__price
+        display: inline-block
+        margin: 0
+        width: 20%
+        text-align: right
+    &__description
+        width: 80%
+        margin-top: 5 / 16 * 1em
+        margin-bottom: 0
+    &__add-button
+        //margin-top: 5 / 16 * 1em
+        align-self: flex-start
+        margin-top: 5 / 16 * 1em
+        margin-left: auto
+        border: none
+        background-color: transparent
+        color: $primary-color1
+
+.order
+    &__item
+        @extend .menu__item
+    &__name
+        display: inline-block
+        width: 80%
+        margin: 0
+    &__price
+        display: inline-block
+        margin: 0
+        width: 20%
+        text-align: right
+    &__count-container
+        //width: 100%
+        display: flex
+        //align-items: center
+    &__count
+        margin-left: 10 / 16 * 1em
+        margin-right:  10 / 16 * 1em
+    &__delete-button
+        margin-left: auto
+        padding: 0
+        border: none
+        background-color: transparent
+        color: $primary-color1
+        padding: 0
+
+.order__minus-button, .order__plus-button
+    border: none
+    background-color: transparent
+    color: $primary-color1
+    padding: 0
+    font-size: 16 / 16 * 1em
+
+.total
+    width: 90%
+    margin: 0 auto
+    margin-top: 20 / 16 * 1em
+    text-align: right
