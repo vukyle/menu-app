@@ -83,7 +83,7 @@ var handlers = {
             menu.addToOrderList(menuName, menuPrice);
             menu.calcObjectTotalPrice();
         } else {
-            //it should check to see item is already in array. If item exist, the quantity updates. Othewise doesItemExist returns false and item gets pushed in array.
+            //it should check to see item is already in array. If item exist, the quantity updates. Othewise doesItemExist returns false and item gets pushed into array.
             for (var i = 0; i < menu.orderList.length; i++) {
                 if (menuName === menu.orderList[i].name) {
                     menu.orderList[i].quantity++;
@@ -117,10 +117,18 @@ var handlers = {
         menu.calcObjectTotalPrice();
         view.displayOrderList();
     },
+    openOrderList: function() {
+        var orderContainer = document.querySelector('.order__container');
+        orderContainer.style.display = 'block';
+    },
+    closeOrderList: function() {
+
+    }
 };
 
 var view = {
     displayOrderList: function() {
+        debugger;
         var takeOutOrderDiv = document.querySelector('.order-list');
         var totalDiv = document.querySelector('.total');
 
@@ -130,9 +138,6 @@ var view = {
             totalDiv.appendChild(this.createPriceTotal());
             totalDiv.appendChild(this.createQuantityTotal());
         }
-        // totalDiv.appendChild(this.createPriceTotal());
-        // totalDiv.appendChild(this.createQuantityTotal());
-
         for (var i = 0; i < menu.orderList.length; i++) {
             var menuName = menu.orderList[i].name;
             var menuPrice = menu.orderList[i].price;
@@ -143,31 +148,6 @@ var view = {
             takeOutOrderDiv.appendChild(newMenuAddition);
         }
     },
-    // displayOrderList: function() {
-    //     var takeOutOrderDiv = document.querySelector('.order-list');
-    //     var totalDiv = document.querySelector('.total');
-    //
-    //     totalDiv.innerHTML = '';
-    //     takeOutOrderDiv.innerHTML = '';
-    //     if (menu.orderList.length > 0) {
-    //         totalDiv.appendChild(this.createPriceTotal());
-    //         totalDiv.appendChild(this.createQuantityTotal());
-    //     }
-    //     // totalDiv.appendChild(this.createPriceTotal());
-    //     // totalDiv.appendChild(this.createQuantityTotal());
-    //
-    //     for (var i = 0; i < menu.orderList.length; i++) {
-    //         var menuName = menu.orderList[i].name;
-    //         var menuPrice = menu.orderList[i].price;
-    //         var quantity = menu.orderList[i].quantity;
-    //         var newMenuAddition = this.createMenu(menuName, menuPrice);
-    //         newMenuAddition.appendChild(this.createMinusButton());
-    //         newMenuAddition.appendChild(this.createCounter(quantity));
-    //         newMenuAddition.appendChild(this.createPlusButton());
-    //         newMenuAddition.appendChild(this.createRemoveButton());
-    //         takeOutOrderDiv.appendChild(newMenuAddition);
-    //     }
-    // },
     createMenu: function(name, price) {
         var menuContainer = document.createElement('div');
         var menuNameElement = document.createElement('h4');
@@ -203,10 +183,6 @@ var view = {
         countContainer.appendChild(count);
         countContainer.appendChild(this.createPlusButton());
         return countContainer;
-        // var count = document.createElement('div');
-        // count.setAttribute('class', 'order__count');
-        // count.textContent = 'qty ' + value;
-        // return count;
     },
 
     createPlusButton: function() {
@@ -236,6 +212,7 @@ var view = {
         var menuItemArray = document.querySelectorAll('.menu__item');
         var menuContainer = document.querySelector('.menu');
         var orderList = document.querySelector('.order-list');
+        var openOrderListButton = document.querySelector('body');
 
         menuContainer.addEventListener('click', function(event) {
             var elementClicked = event.target;
