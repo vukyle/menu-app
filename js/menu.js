@@ -16,7 +16,7 @@ var menu = {
             totalPrice: null
         });
     },
-    deleteMenu: function(position) {
+    deleteItem: function(position) {
         this.orderList.splice(position, 1);
     },
 
@@ -103,8 +103,8 @@ var handlers = {
         menu.sumOfQuantity();
         view.displayOrderList();
     },
-    deleteMenu: function(position) {
-        menu.deleteMenu(position);
+    deleteItem: function(position) {
+        menu.deleteItem(position);
         view.displayOrderList();
     },
     changeQuantityPlus: function(position) {
@@ -119,25 +119,29 @@ var handlers = {
     },
     openOrderList: function() {
         var orderContainer = document.querySelector('.order__container');
-        orderContainer.style.display = 'block';
+        if (orderContainer.style.display === 'block') {
+            orderContainer.style.display = 'none';
+        } else {
+            orderContainer.style.display = 'block';
+        }
     },
     closeOrderList: function() {
-
+        var orderContainer = document.querySelector('.order__container');
+        orderContainer.style.display = 'none';
     }
 };
 
 var view = {
     displayOrderList: function() {
-        debugger;
-        var takeOutOrderDiv = document.querySelector('.order-list');
-        var totalDiv = document.querySelector('.total');
 
-        totalDiv.innerHTML = '';
+        var takeOutOrderDiv = document.querySelector('.order__list');
+
         takeOutOrderDiv.innerHTML = '';
+        //Display close button for order list
         if (menu.orderList.length > 0) {
-            totalDiv.appendChild(this.createPriceTotal());
-            totalDiv.appendChild(this.createQuantityTotal());
+            takeOutOrderDiv.appendChild(this.createCloseButton());
         }
+
         for (var i = 0; i < menu.orderList.length; i++) {
             var menuName = menu.orderList[i].name;
             var menuPrice = menu.orderList[i].price;
@@ -146,6 +150,10 @@ var view = {
             newMenuAddition.appendChild(this.createCounter(quantity));
             newMenuAddition.appendChild(this.createRemoveButton());
             takeOutOrderDiv.appendChild(newMenuAddition);
+        }
+        if (menu.orderList.length > 0) {
+            takeOutOrderDiv.appendChild(this.createPriceTotal());
+            // takeOutOrderDiv.appendChild(this.createQuantityTotal());
         }
     },
     createMenu: function(name, price) {
@@ -198,20 +206,36 @@ var view = {
         return minusButton;
     },
     createPriceTotal: function() {
+        var totalContainer = document.createElement('div');
         var priceTotal = document.createElement('div');
+        priceTotal.className = 'price-total';
         priceTotal.textContent = 'Total: $' + menu.sumOfPrice() + '.00 *before tax';
-        priceTotal.setAttribute('class', 'price-total');
-        return priceTotal;
+        totalContainer.className = 'order__total';
+        totalContainer.appendChild(priceTotal);
+        totalContainer.appendChild(view.createQuantityTotal());
+        return totalContainer;
     },
     createQuantityTotal: function() {
         var quantityTotal = document.createElement('div');
-        quantityTotal.textContent = 'Total of items ordered: ' + menu.sumOfQuantity();
+        quantityTotal.textContent = 'Items ordered: ' + menu.sumOfQuantity();
         return quantityTotal;
+    },
+    createCloseButton: function() {
+        var closeButton = document.createElement('span');
+        var closeIcon = document.createElement('i');
+
+        closeButton.setAttribute('onclick', 'handlers.openOrderList()');
+        closeButton.className = 'order__close-button';
+        closeIcon.textContent = 'clear';
+        closeIcon.className = 'material-icons';
+
+        closeButton.appendChild(closeIcon);
+        return closeButton;
     },
     setupEventListeners: function() {
         var menuItemArray = document.querySelectorAll('.menu__item');
         var menuContainer = document.querySelector('.menu');
-        var orderList = document.querySelector('.order-list');
+        var orderList = document.querySelector('.order__list');
         var openOrderListButton = document.querySelector('body');
 
         menuContainer.addEventListener('click', function(event) {
@@ -224,7 +248,7 @@ var view = {
         orderList.addEventListener('click', function(event) {
             var elementClicked = event.target;
             if (elementClicked.className === 'order__delete-button') {
-                handlers.deleteMenu(parseInt(menu.assignPosition(elementClicked.parentNode)));
+                handlers.deleteItem(parseInt(menu.assignPosition(elementClicked.parentNode)));
             } else if (elementClicked.className === 'order__plus-button') {
                 handlers.changeQuantityPlus(parseInt(menu.assignPosition(elementClicked.parentNode.parentNode)));
 

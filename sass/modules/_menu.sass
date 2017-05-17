@@ -73,6 +73,16 @@
         background-color: transparent
         color: $primary-color1
         padding: 0
+    &__total
+        width: 90%
+        margin: 0 auto
+        margin-top: 1em
+        margin-bottom: 1em
+        display: flex
+        flex-direction: column
+        align-items: flex-end
+    &__close-button
+        align-self: flex-end
 
 .order__minus-button, .order__plus-button
     border: none
@@ -81,11 +91,13 @@
     padding: 0
     font-size: 16 / 16 * 1em
 
-.order-list__button
+.order-list-display-button
     border: none
     background-color: transparent
 
-.order-list
+.order__list
+    display: flex
+    flex-direction: column
     margin: 15% auto
     width: 80%
     background-color: white
