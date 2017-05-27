@@ -73,6 +73,8 @@
         background-color: transparent
         color: $primary-color1
         padding: 0
+    &__header
+        text-align: center
     &__total
         width: 90%
         margin: 0 auto
@@ -92,14 +94,27 @@
     font-size: 16 / 16 * 1em
 
 .order-list-display-button
+    visibility: hidden
+    position: fixed
+    right: 0
+    bottom: 0
     border: none
     background-color: transparent
+    &--animated
+        animation-name: bounce
+        animation-duration: 1.5s
+
+@keyframes bounce
+    50%
+        transform: translateY(-30 / 16 *1em)
+
+
 
 .order__list
     display: flex
     flex-direction: column
     margin: 15% auto
-    width: 80%
+    width: 90%
     background-color: white
 
 .total
@@ -107,3 +122,26 @@
     margin: 0 auto
     margin-top: 20 / 16 * 1em
     text-align: right
+
+.item-added-popup
+    display: none
+    position: fixed
+    top: 50%
+    left: 50%
+    transform: translateX(-50%)
+    z-index: 1
+    color: white
+    background-color: black
+    padding: 10px
+    border-radius: 10px
+    animation-name: fade-in
+    animation-duration: 1500ms
+    animation-fill-mode: forwards
+
+@keyframes fade-in
+    0%
+        opacity: 0
+    50%
+        opacity: 1
+    100%
+        opacity: 0

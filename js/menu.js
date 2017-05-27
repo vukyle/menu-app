@@ -118,28 +118,31 @@ var handlers = {
         view.displayOrderList();
     },
     openOrderList: function() {
+        //debugger;
         var orderContainer = document.querySelector('.order__container');
-        if (orderContainer.style.display === 'block') {
-            orderContainer.style.display = 'none';
-        } else {
-            orderContainer.style.display = 'block';
+        if (menu.orderList.length > 0) {
+            if (orderContainer.style.display === 'block') {
+                orderContainer.style.display = 'none';
+            } else {
+                orderContainer.style.display = 'block';
+            }
         }
     },
-    closeOrderList: function() {
-        var orderContainer = document.querySelector('.order__container');
-        orderContainer.style.display = 'none';
-    }
 };
 
 var view = {
     displayOrderList: function() {
 
         var takeOutOrderDiv = document.querySelector('.order__list');
+        var orderContainer = document.querySelector('.order__container');
 
         takeOutOrderDiv.innerHTML = '';
         //Display close button for order list
         if (menu.orderList.length > 0) {
             takeOutOrderDiv.appendChild(this.createCloseButton());
+            takeOutOrderDiv.appendChild(this.createOrderListHeader());
+        } else { //closes modal when there are no items in the order list
+            orderContainer.style.display = 'none';
         }
 
         for (var i = 0; i < menu.orderList.length; i++) {
@@ -153,8 +156,14 @@ var view = {
         }
         if (menu.orderList.length > 0) {
             takeOutOrderDiv.appendChild(this.createPriceTotal());
-            // takeOutOrderDiv.appendChild(this.createQuantityTotal());
         }
+    },
+    createOrderListHeader: function() {
+        var orderHeader = document.createElement('h1');
+
+        orderHeader.className = 'order__header';
+        orderHeader.textContent = 'Order List';
+        return orderHeader;
     },
     createMenu: function(name, price) {
         var menuContainer = document.createElement('div');
@@ -208,11 +217,17 @@ var view = {
     createPriceTotal: function() {
         var totalContainer = document.createElement('div');
         var priceTotal = document.createElement('div');
+        var text = document.createElement('p');
+
         priceTotal.className = 'price-total';
-        priceTotal.textContent = 'Total: $' + menu.sumOfPrice() + '.00 *before tax';
+        priceTotal.textContent = 'Total: $' + menu.sumOfPrice() + '.00';
         totalContainer.className = 'order__total';
+        text.className = 'order__total-text';
+        text.textContent = 'Call (626) 345-5128 to place your order';
+
         totalContainer.appendChild(priceTotal);
         totalContainer.appendChild(view.createQuantityTotal());
+        totalContainer.appendChild(text);
         return totalContainer;
     },
     createQuantityTotal: function() {
@@ -232,16 +247,31 @@ var view = {
         closeButton.appendChild(closeIcon);
         return closeButton;
     },
+
     setupEventListeners: function() {
         var menuItemArray = document.querySelectorAll('.menu__item');
         var menuContainer = document.querySelector('.menu');
         var orderList = document.querySelector('.order__list');
-        var openOrderListButton = document.querySelector('body');
+        var orderContainer = document.querySelector('.order__container');
 
         menuContainer.addEventListener('click', function(event) {
+            var popup = document.querySelector('.item-added-popup');
+            var displayButton = document.querySelector('.order-list-display-button');
             var elementClicked = event.target;
             if (elementClicked.nodeName === 'BUTTON') {
                 handlers.addItem(parseInt(menu.assignPosition(elementClicked.parentNode)));
+                //displays popup message that item was added
+                popup.style.display = 'inline-block';
+                setTimeout(function(){
+                    popup.style.display = 'none';
+                }, 1500);
+
+                //display button to view order list
+                displayButton.style.visibility = 'visible';
+                displayButton.className += ' order-list-display-button--animated';
+                setTimeout(function() {
+                    displayButton.className = 'order-list-display-button';
+                }, 1500);
             }
         });
 
@@ -254,6 +284,13 @@ var view = {
 
             } else if (elementClicked.className === 'order__minus-button') {
                 handlers.changeQuantityMinus(parseInt(menu.assignPosition(elementClicked.parentNode.parentNode)));
+            }
+        });
+
+        orderContainer.addEventListener('click', function(event) {
+            var elementClicked = event.target;
+            if (elementClicked.className === 'order__container') {
+                elementClicked.style.display = 'none';
             }
         });
     }

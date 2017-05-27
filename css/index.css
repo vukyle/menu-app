@@ -519,6 +519,9 @@ a:active {
   color: #ff8b38;
   padding: 0; }
 
+.order__header {
+  text-align: center; }
+
 .order__total {
   width: 90%;
   margin: 0 auto;
@@ -547,8 +550,27 @@ a:active {
   font-size: 1em; }
 
 .order-list-display-button {
+  visibility: hidden;
+  position: fixed;
+  right: 0;
+  bottom: 0;
   border: none;
   background-color: transparent; }
+  .order-list-display-button--animated {
+    -webkit-animation-name: bounce;
+    animation-name: bounce;
+    -webkit-animation-duration: 1.5s;
+    animation-duration: 1.5s; }
+
+@-webkit-keyframes bounce {
+  50% {
+    -webkit-transform: translateY(-1.875em);
+    transform: translateY(-1.875em); } }
+
+@keyframes bounce {
+  50% {
+    -webkit-transform: translateY(-1.875em);
+    transform: translateY(-1.875em); } }
 
 .order__list {
   display: -webkit-flex;
@@ -558,7 +580,7 @@ a:active {
   -ms-flex-direction: column;
   flex-direction: column;
   margin: 15% auto;
-  width: 80%;
+  width: 90%;
   background-color: white; }
 
 .total {
@@ -566,6 +588,42 @@ a:active {
   margin: 0 auto;
   margin-top: 1.25em;
   text-align: right; }
+
+.item-added-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  z-index: 1;
+  color: white;
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-animation-name: fade-in;
+  animation-name: fade-in;
+  -webkit-animation-duration: 1500ms;
+  animation-duration: 1500ms;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards; }
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+@keyframes fade-in {
+  0% {
+    opacity: 0; }
+  50% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
 
 .absolute-center {
   left: 50%;
@@ -591,5 +649,12 @@ a:active {
       width: 100%; }
     .menu__item, .order__item {
       width: 30%; }
-  .order__item {
-    width: 50%; } }
+  .order__list {
+    width: 60%; }
+  .order__item, .order__total {
+    width: 50%; }
+  .order-list-display-button {
+    bottom: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%); } }
