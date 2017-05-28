@@ -1,0 +1,39 @@
+{
+    "menu": [
+        {
+            "type": [
+                    "SMALL & LARGE",
+                {
+                    "name": "Pear Salad",
+                    "price": "$9",
+                    "description": "Red Bartlett, Asian pears, endive, arugula, gorgonzola, walnuts, lime-pomegranate vinaigrette"
+                },
+                {
+                    "name": "Mac ‘n’ Cheese",
+                    "price": "$6",
+                    "description": "Elbow macaroni, smoked gouda, aged cheddar and bread & bacon crumble"
+                },
+                {
+                    "name": "Pear Salad",
+                    "price": "$9",
+                    "description": "Red Bartlett, Asian pears, endive, arugula, gorgonzola, walnuts, lime-pomegranate vinaigrette"
+                }
+            ]
+        },
+        {
+            "type": [
+                    "SNACKS",
+                {
+                    "name": "Pear Salad",
+                    "price": "$9",
+                    "description": "Red Bartlett, Asian pears, endive, arugula, gorgonzola, walnuts, lime-pomegranate vinaigrette"
+                },
+                {
+                    "name": "Mac ‘n’ Cheese",
+                    "price": "$6",
+                    "description": "Elbow macaroni, smoked gouda, aged cheddar and bread & bacon crumble"
+                }
+            ]
+        }
+    ]
+}
